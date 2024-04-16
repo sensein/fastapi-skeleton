@@ -18,6 +18,7 @@ While this skeleton is concentrated on the BrainyPedia project, it can be used i
 Special thanks to the authors of the resources below who helped with some best practices.
 - Building Python Microservices with FastAPI
 - Mastering-REST-APIs-with-FastAPI
+- FastAPI official documentation
 
 ### License
 [MIT](https://github.com/git/git-scm.com/blob/main/MIT-LICENSE.txt)
