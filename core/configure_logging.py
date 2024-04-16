@@ -17,11 +17,16 @@
 # @Software: PyCharm
 
 from logging.config import dictConfig
+
 from core.configuration import config, DevelopmentConfig
 
 handlers = ["default", "rotating_file"]
 if config.ENV_STATE == "prod":
-    handlers = ["default", "rotating_file", "logtail"] #if we don't want to store logs in logtail then it can be removed
+    handlers = [
+        "default",
+        "rotating_file",
+        "logtail",
+    ]  # if we don't want to store logs in logtail then it can be removed
 
 
 def configure_logging() -> None:

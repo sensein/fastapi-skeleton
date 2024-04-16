@@ -16,9 +16,10 @@
 # @File    : configuration.py
 # @Software: PyCharm
 
-from typing import Optional
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
+from typing import Optional
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class BaseConfig(BaseSettings):
@@ -34,16 +35,19 @@ class GlobalConfig(BaseConfig):
 
 class DevelopmentConfig(GlobalConfig):
     """Get the development environment, i.e., environment variables in env file with prefix DEV"""
+
     model_config = SettingsConfigDict(env_prefix="DEV_")
 
 
 class ProductionConfig(GlobalConfig):
     """Get the production environment, i.e environment variables in env file with prefix PROD"""
+
     model_config = SettingsConfigDict(env_prefix="PROD_")
 
 
 class TestConfig(GlobalConfig):
     """Get the test environment, i.e., environment variables in env file with prefix TEST. Default test.db"""
+
     DATABASE_URL: str = "sqlite:///test.db"
     DB_FORCE_ROLL_BACK: bool = True
 
