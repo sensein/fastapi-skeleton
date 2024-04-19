@@ -16,7 +16,6 @@
 # @File    : index.py
 # @Software: PyCharm
 from fastapi import APIRouter
-from fastapi import Header
 
 router = APIRouter()
 
