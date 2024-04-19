@@ -1,8 +1,5 @@
 fastapi==0.110.1
 uvicorn[standard]==0.29.0
-sqlalchemy
-#async database connection
-databases[aiosqlite]==0.9.0
 #to read .env file
 python-dotenv==1.0.1
 pydantic-settings==2.2.1
@@ -14,9 +11,5 @@ python-json-logger==2.0.7
 asgi-correlation-id==4.3.1
 #logtailhanlder
 logtail-python==0.2.10
-#for jwt
-python-jose==3.3.0
-python-multipart==0.0.9
-passlib[bcrypt]==1.7.4
 # to handle type annotation 'int | None' future
 eval-type-backport==0.1.3
