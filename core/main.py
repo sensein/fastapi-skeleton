@@ -9,15 +9,18 @@ from fastapi.exceptions import HTTPException
 from core.configure_logging import configure_logging
 from core.routers.index import router as index_router
 
-logger = logging.getLogger(__name__)
-
 app = FastAPI()
-configure_logging()
-logger.info("Starting FastAPI")
+logger = logging.getLogger(__name__)
 app.add_middleware(CorrelationIdMiddleware)
 
 
 app.include_router(index_router)
+
+
+@app.on_event("startup")
+async def startup_event():
+    configure_logging()
+    logger.info("Starting FastAPI")
 
 
 # log all HTTP exception when raised
