@@ -1,10 +1,10 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 # Set metadata for the image
-LABEL project="BrainyPedia"
-LABEL maintainer="Tek Raj Chhetri <tekraj@mit.edu>"
-LABEL version="1.0"
-LABEL description="A large scale computational neuroscience knowledge graphs project, fastapi docker image"
+LABEL project="BrainyPedia" \
+      maintainer="Tek Raj Chhetri <tekraj@mit.edu>" \
+      version="1.0" \
+      description="A large scale computational neuroscience knowledge graphs project, fastapi docker image"
 
 
 COPY . .
