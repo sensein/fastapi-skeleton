@@ -143,7 +143,7 @@ async def get_user(conn=None, email=None):
         if conn is None:
             conn = await connect_postgres()
         query = """
-        SELECT * FROM "{}" WHERE email = $1 LIMIT 1
+        SELECT * FROM "{}" WHERE email = $1 AND is_active=True LIMIT 1
         """.format(
             table_name_user
         )
