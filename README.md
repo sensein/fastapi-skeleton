@@ -11,7 +11,24 @@ While this skeleton is concentrated on the BrainyPedia project, it can be used i
 - [ ] E-mail confirmation for new JWT-user
 
 
-
+### Environment variables
+```bash
+ENV_STATE=dev 
+DATABASE_URL= 
+DB_FORCE_ROLL_BACK=False
+LOGTAIL_API_KEY= 
+JWT_POSTGRES_DATABASE_PORT= 
+JWT_POSTGRES_DATABASE_USER= 
+JWT_POSTGRES_DATABASE_PASSWORD= 
+JWT_POSTGRES_TABLE_USER_SCOPE_REL= 
+JWT_POSTGRES_DATABASE_NAME= 
+JWT_POSTGRES_TABLE= 
+JWT_POSTGRES_DATABASE_HOST_URL= 
+JWT_POSTGRES_TABLE_USER= 
+JWT_POSTGRES_TABLE_SCOPE= 
+JWT_ALGORITHM= 
+JWT_SECRET_KEY= 
+```
 
 
 ### Acknowledgements
