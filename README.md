@@ -5,10 +5,13 @@ While this skeleton is concentrated on the BrainyPedia project, it can be used i
 ## Features Implemented
 - [x] Logging 
 - ![](images/logging.png)
+
+## Depends on?
+- **JWT User & Scope Manager:** Check _APItokenmanager_ directory in [BrainyPedia](https://github.com/sensein/brainypedia/tree/ingestion-fapi-skeleton) repository.
+
 ## Features to be Implemented
-- [ ] Containerization of the application
-- [ ] JWT-based Authentication
-- [ ] E-mail confirmation for new JWT-user
+- [x] Containerization of the application
+- [x] JWT-based Authentication & Authorization
 
 
 ### Environment variables
