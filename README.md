@@ -39,10 +39,11 @@ While this skeleton is concentrated on the BrainyPedia project, it can be used i
         return {"message": "your message/response"}
     ```
 
-## Features to be Implemented
+## Features 
 - [x] Containerization of the application
 - [x] JWT-based Authentication & Authorization
-
+- [x] Permission (or role or scope) management
+- [x] Role based REST endpoint access
 
 ### Environment variables
 ```bash
