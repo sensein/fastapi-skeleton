@@ -32,4 +32,4 @@ async def root():
 
 @router.get("/token-check", dependencies=[Depends(require_scopes(["read"]))])
 async def token_check(user: Annotated[LoginUserIn, Depends(get_current_user)]):
-    return {"message": "token check passed sucecss"}
+    return {"message": "token check passed success"}
