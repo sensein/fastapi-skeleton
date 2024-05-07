@@ -9,13 +9,15 @@
 # tort, or otherwise, arising from, out of, or in connection with the
 # software or the use or other dealings in the software.
 # -----------------------------------------------------------------------------
-from datetime import datetime
 
 # @Author  : Tek Raj Chhetri
 # @Email   : tekraj@mit.edu
 # @Web     : https://tekrajchhetri.com/
 # @File    : database.py
 # @Software: PyCharm
+
+from datetime import datetime
+
 import asyncpg
 from fastapi import HTTPException
 
@@ -48,21 +50,6 @@ async def close_db_connection(conn):
 
 async def insert_data(conn, fullname, email, password):
     try:
-
-        pg_query = f"""
-            INSERT INTO \"{table_name_user}\" (full_name, email, password, is_active, created_at, updated_at) 
-            VALUES ($1, $2, $3, $4, $5, $6) RETURNING id
-        """
-        jwt_user_id = await conn.fetchval(
-            pg_query,
-            fullname,
-            email,
-            password,
-            False,
-            datetime.utcnow(),
-            datetime.utcnow(),
-        )
-
         scope_exist_id = await select_scope_id(conn)
         if not scope_exist_id:
             # First insert the default read access
@@ -77,6 +64,19 @@ async def insert_data(conn, fullname, email, password):
                 datetime.utcnow(),
                 datetime.utcnow(),
             )
+            pg_query = f"""
+                INSERT INTO \"{table_name_user}\" (full_name, email, password, is_active, created_at, updated_at) 
+                VALUES ($1, $2, $3, $4, $5, $6) RETURNING id
+            """
+            jwt_user_id = await conn.fetchval(
+                pg_query,
+                fullname,
+                email,
+                password,
+                False,
+                datetime.utcnow(),
+                datetime.utcnow(),
+            )
 
             # now connect with rel
             await conn.execute(
@@ -85,6 +85,20 @@ async def insert_data(conn, fullname, email, password):
                 new_scope_id,
             )
         else:
+            pg_query = f"""
+                INSERT INTO \"{table_name_user}\" (full_name, email, password, is_active, created_at, updated_at) 
+                VALUES ($1, $2, $3, $4, $5, $6) RETURNING id
+            """
+            jwt_user_id = await conn.fetchval(
+                pg_query,
+                fullname,
+                email,
+                password,
+                False,
+                datetime.utcnow(),
+                datetime.utcnow(),
+            )
+
             await conn.execute(
                 f"""INSERT INTO \"{table_relation}\" (jwtuser_id, scope_id) VALUES ($1, $2)""",
                 jwt_user_id,
@@ -98,11 +112,12 @@ async def insert_data(conn, fullname, email, password):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-async def insert_scope(conn):
+async def insert_scope(conn=None):
     try:
-        row = await conn.fetchrow(
-            "SELECT id FROM \"{table_name_scope}\" WHERE NAME = 'read'"
-        )
+        if conn is None:
+            conn = await connect_postgres()
+            query = f"SELECT id FROM \"{table_name_scope}\" WHERE NAME = 'read'"
+        row = await conn.fetchrow(query)
         if row:
             return row
         return False
@@ -110,11 +125,12 @@ async def insert_scope(conn):
         raise HTTPException(status_code=400, detail=str(e))
 
 
-async def select_scope_id(conn):
+async def select_scope_id(conn=None):
     try:
-        scope_id = await conn.fetchval(
-            "SELECT id FROM \"{table_name_scope}\" WHERE NAME = 'read' LIMIT 1"
-        )
+        if conn is None:
+            conn = await connect_postgres()
+        query = f"SELECT id FROM \"{table_name_scope}\" WHERE NAME = 'read' LIMIT 1;"
+        scope_id = await conn.fetchval(query)
         return scope_id  # Returns the user ID if found, or None if no user exists
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -129,9 +145,6 @@ async def get_scopes_by_user(user_id):
     try:
         results = await conn.fetch(query, user_id)
         assigned_scopes_to_user = [result["name"] for result in results]
-        print("*" * 100)
-        print(assigned_scopes_to_user)
-        print("#" * 100)
         return assigned_scopes_to_user
     finally:
         # Ensure the connection is closed even if an error occurs
