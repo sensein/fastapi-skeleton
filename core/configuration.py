@@ -23,7 +23,7 @@ from dotenv import load_dotenv
 
 def load_environment(env_name="development"):
     """
-    Load environment variables from the specified .env.development file.
+    Load environment variables from the specified .env.development.development file.
 
     Args:
         env_name (str): Name of the environment (e.g., "production", "development").
@@ -32,11 +32,11 @@ def load_environment(env_name="development"):
     Returns:
         dict: A dictionary containing the loaded environment variables.
     """
-    # Determine the path to the .env.development file based on the environment
+    # Determine the path to the .env.development.development file based on the environment
     root_dir = os.path.dirname(os.path.abspath(__file__))
     env_file = os.path.join(root_dir, f".env.{env_name}")
 
-    # Load environment variables from the .env.development file
+    # Load environment variables from the .env.development.development file
     load_dotenv(dotenv_path=env_file)
 
     # Return a dictionary containing the loaded environment variables
@@ -56,6 +56,14 @@ def load_environment(env_name="development"):
         "JWT_POSTGRES_DATABASE_NAME": os.getenv("JWT_POSTGRES_DATABASE_NAME"),
         "JWT_ALGORITHM": os.getenv("JWT_ALGORITHM", "HS256"),
         "JWT_SECRET_KEY": os.getenv("JWT_SECRET_KEY"),
+
+        # service specific
+        "GRAPHDATABASE_USERNAME": os.getenv("GRAPHDATABASE_USERNAME"),
+        "GRAPHDATABASE_PASSWORD": os.getenv("GRAPHDATABASE_PASSWORD"),
+        "GRAPHDATABASE_HOSTNAME": os.getenv("GRAPHDATABASE_HOSTNAME", "http://localhost"),
+        "GRAPHDATABASE_PORT": os.getenv("GRAPHDATABASE_HOSTNAME", 7200),
+        "GRAPHDATABASE_TYPE": os.getenv("GRAPHDATABASE_TYPE", "GRAPHDB"),
+        "GRAPHDATABASE_REPOSITORY": os.getenv("GRAPHDATABASE_REPOSITORY")
     }
 
 
