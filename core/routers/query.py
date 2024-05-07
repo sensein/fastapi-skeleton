@@ -9,9 +9,24 @@
 # tort, or otherwise, arising from, out of, or in connection with the
 # software or the use or other dealings in the software.
 # -----------------------------------------------------------------------------
- 
+
 # @Author  : Tek Raj Chhetri
 # @Email   : tekraj@mit.edu
 # @Web     : https://tekrajchhetri.com/
 # @File    : query.py
 # @Software: PyCharm
+
+from fastapi import APIRouter, Body
+from core.graph_database_connection_manager import fetch_data_gdb
+
+router = APIRouter()
+
+@router.get("/query/sparql/")
+async def sparql_query(sparql_query: str ):
+    print(sparql_query)
+    response = fetch_data_gdb(sparql_query)
+    return response
+
+@router.post("/query/insert_jsonld")
+async def insert_jsonld():
+    return {"status": "success-test"}
