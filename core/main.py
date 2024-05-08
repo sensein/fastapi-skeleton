@@ -8,6 +8,7 @@ from fastapi.exceptions import HTTPException
 
 from core.configure_logging import configure_logging
 from core.routers.index import router as index_router
+from core.routers.jwt_auth import router as jwt_router
 
 app = FastAPI()
 logger = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ app.add_middleware(CorrelationIdMiddleware)
 
 
 app.include_router(index_router)
+app.include_router(jwt_router)
 
 
 @app.on_event("startup")
